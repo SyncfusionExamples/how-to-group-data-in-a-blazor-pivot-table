@@ -1,0 +1,555 @@
+﻿@page "/"
+
+<SfPivotView TValue="GroupData" Height="300" ShowGroupingBar="true" Width="900" 
+                                AllowGrouping=true EnableVirtualization=true>
+
+    <PivotViewDataSourceSettings DataSource="@PivotTableDataSource">
+
+        <PivotViewColumns>
+            <PivotViewColumn Name="Id" Caption="Product ID"></PivotViewColumn>
+            <PivotViewColumn Name="Sector" Caption="Product Sector"></PivotViewColumn>
+        </PivotViewColumns>
+
+        <PivotViewRows>
+            <PivotViewRow Name="EnergySource" Caption="EnergySource"></PivotViewRow>
+            @*<PivotViewRow Name="TimeLine" Caption="Date"></PivotViewRow>*@
+        </PivotViewRows>
+
+        <PivotViewValues>
+            <PivotViewValue Name="PowUnits" Caption="Units (GWh)"></PivotViewValue>
+            <PivotViewValue Name="ProCost" Caption="Cost (MM)"></PivotViewValue>
+        </PivotViewValues>
+
+        <PivotViewFormatSettings>
+            <PivotViewFormatSetting Name="TimeLine" Type="FormatType.DateTime" Format="dd/MM/yyyy-hh:mm tt"></PivotViewFormatSetting>
+            <PivotViewFormatSetting Name="ProCost" Format="C0" UseGrouping=true></PivotViewFormatSetting>
+            <PivotViewFormatSetting Name="PowUnits" Format="N0" UseGrouping=true></PivotViewFormatSetting>
+        </PivotViewFormatSettings>
+
+        <PivotViewGroupSettings>
+
+            <PivotViewGroupSetting Name="EnergySource" Type="GroupType.Custom">
+                <PivotViewCustomGroups>
+                    <PivotViewCustomGroup GroupName="EnergySource-3" Items="@(new string[] {"Geo-thermal", "Hydro-electric"})"></PivotViewCustomGroup>
+                </PivotViewCustomGroups>
+            </PivotViewGroupSetting>
+        </PivotViewGroupSettings>
+      
+    </PivotViewDataSourceSettings>
+
+    
+
+</SfPivotView>
+@code
+{
+    protected override void OnInitialized()
+    {
+        this.PivotTableDataSource = GroupData.GetGroupData().ToList();
+
+        base.OnInitialized();
+    }
+
+    public List<GroupData> PivotTableDataSource { get; set; }
+
+    public class GroupData
+    {
+        public int Id { get; set; }
+        public string TimeLine { get; set; }
+        public string Sector { get; set; }
+        public string EnerType { get; set; }
+        public string EnergySource { get; set; }
+        public int PowUnits { get; set; }
+        public int ProCost { get; set; }
+        public string Year { get; set; }
+        public string Quarter { get; set; }
+        public string HalfYear { get; set; }
+        public static List<GroupData> GetGroupData()
+        {
+            List<GroupData> groupData = new List<GroupData>();
+            groupData.Add(new GroupData
+                {
+                    Id = 1001,
+                    TimeLine = "1/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 46,
+                    ProCost = 43
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1002,
+                    TimeLine = "2/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 30,
+                    ProCost = 29
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1003,
+                    TimeLine = "3/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 125,
+                    ProCost = 96
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1004,
+                    TimeLine = "4/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 215,
+                    ProCost = 123
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1005,
+                    TimeLine = "5/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 263,
+                    ProCost = 125
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1006,
+                    TimeLine = "6/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 61,
+                    ProCost = 50
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1007,
+                    TimeLine = "7/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 20,
+                    ProCost = 31
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1008,
+                    TimeLine = "8/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 133,
+                    ProCost = 110
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1009,
+                    TimeLine = "9/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 33,
+                    ProCost = 65
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1010,
+                    TimeLine = "10/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 37,
+                    ProCost = 20
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1011,
+                    TimeLine = "11/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 109,
+                    ProCost = 96
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1012,
+                    TimeLine = "12/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 266,
+                    ProCost = 139
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1020,
+                    TimeLine = "8/1/2016",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 281,
+                    ProCost = 134
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1021,
+                    TimeLine = "9/1/2016",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 228,
+                    ProCost = 107
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1022,
+                    TimeLine = "10/1/2016",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 73,
+                    ProCost = 49
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1023,
+                    TimeLine = "11/1/2016",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 19,
+                    ProCost = 44
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1024,
+                    TimeLine = "12/1/2016",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 149,
+                    ProCost = 82
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1025,
+                    TimeLine = "1/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 47,
+                    ProCost = 58
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1026,
+                    TimeLine = "2/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 25,
+                    ProCost = 40
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1027,
+                    TimeLine = "3/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 127,
+                    ProCost = 93
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1028,
+                    TimeLine = "4/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 216,
+                    ProCost = 124
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1029,
+                    TimeLine = "5/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 267,
+                    ProCost = 100
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1030,
+                    TimeLine = "6/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 52,
+                    ProCost = 65
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1031,
+                    TimeLine = "7/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 39,
+                    ProCost = 33
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1032,
+                    TimeLine = "8/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 142,
+                    ProCost = 97
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1033,
+                    TimeLine = "9/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 53,
+                    ProCost = 49
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1034,
+                    TimeLine = "10/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 23,
+                    ProCost = 44
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1035,
+                    TimeLine = "11/1/2017",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 113,
+                    ProCost = 106
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1036,
+                    TimeLine = "12/1/2017",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 270,
+                    ProCost = 101
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1037,
+                    TimeLine = "1/1/2018",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 284,
+                    ProCost = 105
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1038,
+                    TimeLine = "2/1/2018",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 62,
+                    ProCost = 43
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1039,
+                    TimeLine = "1/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 32,
+                    ProCost = 26
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1040,
+                    TimeLine = "2/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 133,
+                    ProCost = 83
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1041,
+                    TimeLine = "3/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 51,
+                    ProCost = 65
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1042,
+                    TimeLine = "4/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 13,
+                    ProCost = 25
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1043,
+                    TimeLine = "5/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 139,
+                    ProCost = 101
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1044,
+                    TimeLine = "6/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 297,
+                    ProCost = 130
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1045,
+                    TimeLine = "7/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 236,
+                    ProCost = 119
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1046,
+                    TimeLine = "8/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 57,
+                    ProCost = 66
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1047,
+                    TimeLine = "9/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 16,
+                    ProCost = 27
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1048,
+                    TimeLine = "10/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 110,
+                    ProCost = 93
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1049,
+                    TimeLine = "11/1/2015",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 55,
+                    ProCost = 49
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1050,
+                    TimeLine = "12/1/2015",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 32,
+                    ProCost = 39
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1051,
+                    TimeLine = "1/1/2016",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Solar",
+                    PowUnits = 128,
+                    ProCost = 120
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1052,
+                    TimeLine = "2/1/2016",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 290,
+                    ProCost = 128
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1053,
+                    TimeLine = "3/1/2016",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Wind",
+                    PowUnits = 201,
+                    ProCost = 105
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1054,
+                    TimeLine = "4/1/2016",
+                    Sector = "Private Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Hydro-electric",
+                    PowUnits = 55,
+                    ProCost = 46
+                });
+            groupData.Add(new GroupData
+                {
+                    Id = 1055,
+                    TimeLine = "5/1/2016",
+                    Sector = "Public Sector",
+                    EnerType = "Free Energy",
+                    EnergySource = "Geo-thermal",
+                    PowUnits = 20,
+                    ProCost = 37
+                });
+            return groupData;
+        }
+    }
+
+
+
+}
